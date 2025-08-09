@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const links = [
   { href: "/dashboard", label: "Dashboard" },
@@ -9,6 +10,7 @@ const links = [
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const { user, signOut } = useAuth();
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <nav className="container mx-auto flex h-14 items-center justify-between">
@@ -28,8 +30,14 @@ const Navbar = () => {
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground">Log in</Link>
-          <Link to="/dashboard"><Button variant="hero" size="sm">Get Started</Button></Link>
+          {user ? (
+            <Button variant="outline" size="sm" onClick={signOut}>Log out</Button>
+          ) : (
+            <>
+              <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground">Log in</Link>
+              <Link to="/dashboard"><Button variant="hero" size="sm">Get Started</Button></Link>
+            </>
+          )}
         </div>
       </nav>
     </header>
