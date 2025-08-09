@@ -1,6 +1,5 @@
 import Seo from "@/components/Seo";
-import { useCallback, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useCallback } from "react";
 import {
   ReactFlow,
   MiniMap,
@@ -14,31 +13,17 @@ import {
   Node,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import IngestNode from "@/components/builder/nodes/IngestNode";
-import ChunkNode from "@/components/builder/nodes/ChunkNode";
-import EmbedNode from "@/components/builder/nodes/EmbedNode";
-import IndexNode from "@/components/builder/nodes/IndexNode";
 
 const initialNodes: Node[] = [
-  { id: 'ingest-1', position: { x: 0, y: 80 }, data: { source: 'file' }, type: 'ingest' as any },
-  { id: 'chunk-1', position: { x: 220, y: 80 }, data: { chunkSize: 800, overlap: 100 }, type: 'chunk' as any },
-  { id: 'embed-1', position: { x: 440, y: 80 }, data: { model: 'text-embedding-3-small' }, type: 'embed' as any },
-  { id: 'index-1', position: { x: 660, y: 80 }, data: { provider: 'supabase', namespace: 'default', topK: 5 }, type: 'index' as any },
+  { id: 'ingest', position: { x: 0, y: 80 }, data: { label: 'Ingest' }, type: 'input' },
+  { id: 'embed', position: { x: 200, y: 80 }, data: { label: 'Embed' } },
+  { id: 'index', position: { x: 400, y: 80 }, data: { label: 'Index' }, type: 'output' },
 ];
 
 const initialEdges: Edge[] = [
-  { id: 'e-ingest-chunk', source: 'ingest-1', target: 'chunk-1', animated: true },
-  { id: 'e-chunk-embed', source: 'chunk-1', target: 'embed-1' },
-  { id: 'e-embed-index', source: 'embed-1', target: 'index-1' },
+  { id: 'e1-2', source: 'ingest', target: 'embed', animated: true },
+  { id: 'e2-3', source: 'embed', target: 'index' },
 ];
-
-const nodeTypes = {
-  ingest: IngestNode,
-  chunk: ChunkNode,
-  embed: EmbedNode,
-  index: IndexNode,
-};
-
 
 const Builder = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -62,7 +47,6 @@ const Builder = () => {
           fitView
           style={{ backgroundColor: 'hsl(var(--background))' }}
           attributionPosition="top-right"
-          nodeTypes={nodeTypes}
         >
           <MiniMap />
           <Controls />
