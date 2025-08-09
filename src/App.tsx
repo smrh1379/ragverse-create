@@ -10,6 +10,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Builder from "./pages/Builder";
 import Chat from "./pages/Chat";
+import UniverseDetail from "./pages/UniverseDetail";
+import UniverseChat from "./pages/UniverseChat";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -39,6 +41,8 @@ const HeaderWithRoutes = () => {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/builder" element={<ProtectedRoute><Builder /></ProtectedRoute>} />
         <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+        <Route path="/universe/:id" element={<ProtectedRoute><UniverseDetail /></ProtectedRoute>} />
+        <Route path="/universe/:id/chat" element={<ProtectedRoute><UniverseChat /></ProtectedRoute>} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
