@@ -103,3 +103,39 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Extended design tokens and utilities */
+@layer base {
+  :root {
+    --brand: 258 90% 65%;
+    --brand-2: 205 92% 60%;
+    --brand-contrast: 0 0% 100%;
+    --gradient-primary: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--brand-2)));
+    --shadow-elegant: 0 20px 50px -20px hsl(var(--brand) / 0.35);
+  }
+  .dark {
+    --brand: 258 90% 70%;
+    --brand-2: 205 92% 65%;
+    --brand-contrast: 0 0% 100%;
+    --shadow-elegant: 0 20px 50px -20px hsl(var(--brand) / 0.45);
+  }
+}
+
+@layer components {
+  .aurora-sheen {
+    position: relative;
+    isolation: isolate;
+  }
+  .aurora-sheen::before {
+    content: "";
+    position: absolute;
+    inset: -10%;
+    background:
+      radial-gradient(600px 300px at var(--pointer-x,50%) var(--pointer-y,50%), hsl(var(--brand)/0.35), transparent 60%),
+      radial-gradient(400px 200px at calc(var(--pointer-x,50%) + 10%) calc(var(--pointer-y,50%) - 10%), hsl(var(--brand-2)/0.25), transparent 60%);
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+}
